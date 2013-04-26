@@ -1,0 +1,14 @@
+[Plugin]
+Loader=python3
+Module=customhighlighter
+IAge=3
+Name=Custom Highlighter
+Name[en_GB]=Custom Highlighter
+Name[nl]=Maatwerkmarkeerder
+Description=Custom highligther of lists of words that override syntax highlighting
+Description[en_GB]=Custom highligther of lists of words that override syntax highlighting
+Description[nl]=Maatwerkmarkering voor lijsten van woorden die de syntaxmarkering overschrijven
+Icon=gnome-mime-text
+Authors=Pander Mususbi <pander@users.sourceforge.net>
+Copyright=Copyright © 2013 Pander Musubi
+Website=http://www.gedit.org
