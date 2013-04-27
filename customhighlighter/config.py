@@ -18,48 +18,63 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import ConfigParser, os
+import ConfigParser, os, webcolors
 
 config = ConfigParser.ConfigParser()
 config.read(['default.cfg', os.path.expanduser('~/.config/gedit/gedit-custom-highlighter')])
-fields = ('name', 'style', 'color', 'bgcolor', )
+fields = ('name', 'style', 'color', 'bgcolor', ) # all other are word lists
 
-# sets / definitions / attributes / values
+# sets / definitions / attrs / values
 
 sets = {}
 
 for section in config.sections():
+    if ' - ' not in section:
+        continue
+    updated = False
+    (setname, defname) = section.split(' - ')
     definitions = {}
-    if section in sets:
-        definitions = sets[section]
+    if setname in sets:
+        definitions = sets[setname]
+    attrs = {}
+    if defname in definitions:
+        attrs = definitions[defname]
         
     for option in config.options(section):
-        if '-' not in option:
-            continue
-        (id, attr) = option.split('-')
-        attr = attr.lower()
-        attributes = {}
-        if id in definitions:
-            attributes = definitions[id]
-            
-        if attr in fields:
-            attributes[attr] = config.get(section, option).lower()
-        else:
-            attributes[attr] = config.get(section, option).split('|')
-        
-        definitions[id] = attributes
-        
-    sets[section] = definitions
-        
-for s in sets:
-    print s
-    Set = sets[s]
-    for d in Set:
-        print ' ', d
-        definitions = Set[d]
-        for a in definitions:
-            if a not in fields:
-                print '   ', a + '=' + '/'.join(definitions[a])
+        attrname = option.lower()
+        value = config.get(section, option)
+        if attrname in fields:
+            value = value.lower()
+            if 'color' in attrname:
+                try:
+                    if value[0] == '#':
+                        attrs[attrname] = webcolors.normalize_hex(value)
+                    else:
+                        # color definitions: http://www.w3.org/TR/css3-color/#svg-color
+                        # see also overview: https://en.wikipedia.org/wiki/Html_colors#X11_color_names
+                        attrs[attrname] = webcolors.name_to_hex(value)
+                except ValueError:
+                    continue
             else:
-                print '   ', a + '=' + definitions[a]
+                attrs[attrname] = value
+        else:
+            attrs[attrname] = value.split('|')
+        updated = True
+
+    if updated:
+        definitions[defname] = attrs
+        sets[setname] = definitions
+        updated = False
+
+for setname in sets:
+    print setname
+    Set = sets[setname]
+    for defname in Set:
+        print ' ', defname
+        definitions = Set[defname]
+        for attrname in definitions:
+            if attrname not in fields:
+                print '   ', attrname + '=' + '/'.join(definitions[attrname])
+            else:
+                print '   ', attrname + '=' + definitions[attrname]
 

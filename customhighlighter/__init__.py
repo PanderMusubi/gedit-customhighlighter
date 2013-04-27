@@ -18,44 +18,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-from gi.repository import GObject, Gtk, Gedit, Peas, PeasGtk
+from gi.repository import GObject, Gtk,Gedit
 
-from console import PythonConsole
-from config import PythonConsoleConfigWidget
-
-PYTHON_ICON = 'gnome-mime-text-x-python'
-
-class PythonConsolePlugin(GObject.Object, Gedit.WindowActivatable, PeasGtk.Configurable):
-    __gtype_name__ = "PythonConsolePlugin"
-
-    window = GObject.property(type=Gedit.Window)
+class CustomHighlighterPlugin(GObject.Object, Gedit.WindowActivatable):
+    __gtype_name__ = "CustomHighlighterPlugin"
 
     def __init__(self):
-        GObject.Object.__init__(self)
+        pass
 
     def do_activate(self):
-        self._console = PythonConsole(namespace = {'__builtins__' : __builtins__,
-                                                   'gedit' : Gedit,
-                                                   'window' : self.window})
-        self._console.eval('print "You can access the main window through ' \
-                           '\'window\' :\\n%s" % window', False)
-        bottom = self.window.get_bottom_panel()
-        image = Gtk.Image()
-        image.set_from_icon_name(PYTHON_ICON, Gtk.IconSize.MENU)
-        bottom.add_item(self._console, "GeditPythonConsolePanel",
-                        _('Python Console'), image)
+        pass
 
     def do_deactivate(self):
-        self._console.stop()
-        bottom = self.window.get_bottom_panel()
-        bottom.remove_item(self._console)
+        pass
 
     def do_update_state(self):
         pass
-
-    def do_create_configure_widget(self):
-        config_widget = PythonConsoleConfigWidget(self.plugin_info.get_data_dir())
-
-        return config_widget.configure_widget()
-
-# ex:et:ts=4:
