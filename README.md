@@ -10,6 +10,7 @@ In short, this custom hightlighter plugin for gedit, offers:
   * background color
   * regular/bold/italic/bolditalic
 * each list can be language specific (use spell check language)
+* highlight length of word, sentence and paragraph
 
 Rationale: this custom highlighting can be a writing aid to:
 

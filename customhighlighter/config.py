@@ -20,6 +20,12 @@
 
 import ConfigParser, os, webcolors
 
+#todo FORMAT = '%(asctime)-15s %(clientip)s %(user)-8s %(message)s'
+#logging.basicConfig(format=FORMAT)
+#d = {'clientip': '192.168.0.1', 'user': 'fbloggs'}
+#logger = logging.getLogger('tcpserver')
+#logger.warning('Protocol problem: %s', 'connection reset', extra=d)
+
 config = ConfigParser.ConfigParser()
 config.read(['default.cfg', os.path.expanduser('~/.config/gedit/gedit-custom-highlighter')])
 fields = ('name', 'style', 'color', 'bgcolor', ) # all other are word lists
