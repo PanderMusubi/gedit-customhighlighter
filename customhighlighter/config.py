@@ -18,7 +18,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import ConfigParser, os, rikeripsum, webcolors
+import ConfigParser, os, webcolors
 
 #todo FORMAT = '%(asctime)-15s %(clientip)s %(user)-8s %(message)s'
 #logging.basicConfig(format=FORMAT)
@@ -83,5 +83,3 @@ for setname in sets:
                 print '   ', attrname + '=' + '/'.join(definitions[attrname])
             else:
                 print '   ', attrname + '=' + definitions[attrname]
-
-print rikeripsum.generate_paragraph()

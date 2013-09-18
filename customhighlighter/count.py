@@ -6,6 +6,7 @@ import colorsys
 import nltk
 import re
 import sys
+from rikeripsum import rikeripsum
 
 all_paragraphs = {}
 paragraph_length_min = sys.maxint
@@ -203,3 +204,5 @@ of.write("""</body>
 #    sentences = sentence_splitter.tokenize(paragraph)
   
 #    print 'Total sentences in paragraph:', len(sentences)
+
+print rikeripsum.generate_paragraph()

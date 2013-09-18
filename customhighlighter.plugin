@@ -11,4 +11,4 @@ Description[nl]=Maatwerkmarkering voor lijsten van woorden die de syntaxmarkerin
 Icon=gnome-mime-text
 Authors=Pander Mususbi <pander@users.sourceforge.net>
 Copyright=Copyright © 2013 Pander Musubi
-Website=http://www.gedit.org
+Website=https://github.com/PanderMusubi/gedit-customhighlighter
